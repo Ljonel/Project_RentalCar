@@ -49,8 +49,8 @@
             <Grid>
                 <DataGrid ColumnWidth="*" FontSize="10" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id wynajecia" Binding="{Binding Id_wynaj}"/>
-                        <DataGridTextColumn Header="Nr Rej" Binding="{Binding Nr_Rej}"/>
+                        <DataGridTextColumn Header="Id_wynajecia" Binding="{Binding Id_wynaj}"/>
+                        <DataGridTextColumn Header="Nr_Rej" Binding="{Binding Nr_Rej}"/>
                         <DataGridTextColumn Header="Marka" Binding="{Binding Marka}"/>
                         <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
                         <DataGridTextColumn Header="Data_Od" Binding="{Binding Data_od}"/>

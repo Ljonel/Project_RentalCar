@@ -19,11 +19,41 @@ namespace ProjectC_github
     /// </summary>
     public partial class Wynajem : Window
     {
+        RentalCarEntities _db = new RentalCarEntities();
+        IList<string> nrRej = new List<string>();
+        IList<int> employeeList= new List<int>();
+        IList<int> clientList = new List<int>();
+        /*    var nrQuery =
+                    (from item in _db.samochody select item.nr_rejestracyjny)
+                    .Except(from emp in _db.wynajem select emp.nr_rejestracyjny);
+        */
         public Wynajem()
         {
+
+            var nrQuery = from item in _db.rej_samochody select item;
+            var employeeQuery = from item in _db.pracownicy select item;
+            var clientsQuery = from item in _db.klienci select item;
+           
+           
             InitializeComponent();
+            foreach (var item in nrQuery)
+            {
+               nrRej.Add(item.nr_rejestracyjny);
+            }
+            foreach (var item in employeeQuery)
+            {
+                employeeList.Add(item.id_pracownika);
+            }
+            foreach (var item in clientsQuery)
+            {
+                clientList.Add(item.id_klienta);
+            }
+
+            Nr_rej.ItemsSource = nrRej;
+            Pracownicy.ItemsSource = employeeList;
+            Klienci.ItemsSource = clientList;
         }
-        wynajem w;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
