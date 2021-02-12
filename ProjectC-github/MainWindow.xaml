@@ -31,5 +31,12 @@
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
+
+        <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="25" Foreground="#04c582" VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="System Wypożyczalni Samochodów"></Label>
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Button Margin="30" Width="70" Height="40" Click="Button_Click" Content="Wynajem"></Button>
+            <Button Margin="30" Width="70" Height="40" Content="Pracownicy"></Button>
+            <Button Margin="30" Width="70" Height="40" Content="Klienci"></Button>
+        </DockPanel>
     </Grid>
 </Window>
