@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RentalCarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cennik">
+          <Key>
+            <PropertyRef Name="id_cennik" />
+          </Key>
+          <Property Name="id_cennik" Type="int" Nullable="false" />
+          <Property Name="kategoria" Type="text" Nullable="false" />
+          <Property Name="cena_za_dobe" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="klienci">
+          <Key>
+            <PropertyRef Name="id_klienta" />
+          </Key>
+          <Property Name="id_klienta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="nazwisko" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="miasto" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ulica" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="kod" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="pesel" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pracownicy">
+          <Key>
+            <PropertyRef Name="id_pracownika" />
+          </Key>
+          <Property Name="id_pracownika" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="nazwisko" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="dzial" Type="nvarchar" MaxLength="20" />
+          <Property Name="stanowisko" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="pensja" Type="decimal" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="rej_samochody">
+          <Key>
+            <PropertyRef Name="nr_rejestracyjny" />
+          </Key>
+          <Property Name="nr_rejestracyjny" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="id_samochodu" Type="int" />
+        </EntityType>
+        <EntityType Name="samochody">
+          <Key>
+            <PropertyRef Name="id_samochodu" />
+          </Key>
+          <Property Name="id_samochodu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nr_rejestracyjny" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="marka" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="model" Type="varchar" MaxLength="20" />
+          <Property Name="wersja" Type="varchar" MaxLength="10" />
+          <Property Name="rocznik" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="poj_silnika" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="rodzaj_paliwa" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="przebieg" Type="int" Nullable="false" />
+          <Property Name="id_cennik" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="wynajem">
+          <Key>
+            <PropertyRef Name="id_wynajmu" />
+          </Key>
+          <Property Name="id_wynajmu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_pracownika" Type="int" />
+          <Property Name="id_klienta" Type="int" />
+          <Property Name="nr_rejestracyjny" Type="varchar" MaxLength="12" />
+          <Property Name="data_od" Type="date" />
+          <Property Name="data_do" Type="date" />
+        </EntityType>
+        <Association Name="FK__rej_samoc__id_sa__45F365D3">
+          <End Role="samochody" Type="Self.samochody" Multiplicity="0..1" />
+          <End Role="rej_samochody" Type="Self.rej_samochody" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="samochody">
+              <PropertyRef Name="id_samochodu" />
+            </Principal>
+            <Dependent Role="rej_samochody">
+              <PropertyRef Name="id_samochodu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__samochody__id_ce__440B1D61">
+          <End Role="cennik" Type="Self.cennik" Multiplicity="1" />
+          <End Role="samochody" Type="Self.samochody" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cennik">
+              <PropertyRef Name="id_cennik" />
+            </Principal>
+            <Dependent Role="samochody">
+              <PropertyRef Name="id_cennik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wynajem__id_klie__44FF419A">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="0..1" />
+          <End Role="wynajem" Type="Self.wynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="id_klienta" />
+            </Principal>
+            <Dependent Role="wynajem">
+              <PropertyRef Name="id_klienta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wynajem__id_prac__47DBAE45">
+          <End Role="pracownicy" Type="Self.pracownicy" Multiplicity="0..1" />
+          <End Role="wynajem" Type="Self.wynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pracownicy">
+              <PropertyRef Name="id_pracownika" />
+            </Principal>
+            <Dependent Role="wynajem">
+              <PropertyRef Name="id_pracownika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wynajem__nr_reje__46E78A0C">
+          <End Role="rej_samochody" Type="Self.rej_samochody" Multiplicity="0..1" />
+          <End Role="wynajem" Type="Self.wynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rej_samochody">
+              <PropertyRef Name="nr_rejestracyjny" />
+            </Principal>
+            <Dependent Role="wynajem">
+              <PropertyRef Name="nr_rejestracyjny" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentalCarModelStoreContainer">
+          <EntitySet Name="cennik" EntityType="Self.cennik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="klienci" EntityType="Self.klienci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pracownicy" EntityType="Self.pracownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rej_samochody" EntityType="Self.rej_samochody" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="samochody" EntityType="Self.samochody" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wynajem" EntityType="Self.wynajem" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__rej_samoc__id_sa__45F365D3" Association="Self.FK__rej_samoc__id_sa__45F365D3">
+            <End Role="samochody" EntitySet="samochody" />
+            <End Role="rej_samochody" EntitySet="rej_samochody" />
+          </AssociationSet>
+          <AssociationSet Name="FK__samochody__id_ce__440B1D61" Association="Self.FK__samochody__id_ce__440B1D61">
+            <End Role="cennik" EntitySet="cennik" />
+            <End Role="samochody" EntitySet="samochody" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wynajem__id_klie__44FF419A" Association="Self.FK__wynajem__id_klie__44FF419A">
+            <End Role="klienci" EntitySet="klienci" />
+            <End Role="wynajem" EntitySet="wynajem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wynajem__id_prac__47DBAE45" Association="Self.FK__wynajem__id_prac__47DBAE45">
+            <End Role="pracownicy" EntitySet="pracownicy" />
+            <End Role="wynajem" EntitySet="wynajem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wynajem__nr_reje__46E78A0C" Association="Self.FK__wynajem__nr_reje__46E78A0C">
+            <End Role="rej_samochody" EntitySet="rej_samochody" />
+            <End Role="wynajem" EntitySet="wynajem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentalCarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cennik">
+          <Key>
+            <PropertyRef Name="id_cennik" />
+          </Key>
+          <Property Name="id_cennik" Type="Int32" Nullable="false" />
+          <Property Name="kategoria" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cena_za_dobe" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <NavigationProperty Name="samochody" Relationship="Self.FK__samochody__id_ce__440B1D61" FromRole="cennik" ToRole="samochody" />
+        </EntityType>
+        <EntityType Name="klienci">
+          <Key>
+            <PropertyRef Name="id_klienta" />
+          </Key>
+          <Property Name="id_klienta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="miasto" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ulica" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kod" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="pesel" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="wynajem" Relationship="Self.FK__wynajem__id_klie__44FF419A" FromRole="klienci" ToRole="wynajem" />
+        </EntityType>
+        <EntityType Name="pracownicy">
+          <Key>
+            <PropertyRef Name="id_pracownika" />
+          </Key>
+          <Property Name="id_pracownika" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dzial" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="stanowisko" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pensja" Type="Decimal" Precision="8" Scale="2" />
+          <NavigationProperty Name="wynajem" Relationship="Self.FK__wynajem__id_prac__47DBAE45" FromRole="pracownicy" ToRole="wynajem" />
+        </EntityType>
+        <EntityType Name="rej_samochody">
+          <Key>
+            <PropertyRef Name="nr_rejestracyjny" />
+          </Key>
+          <Property Name="nr_rejestracyjny" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_samochodu" Type="Int32" />
+          <NavigationProperty Name="samochody" Relationship="Self.FK__rej_samoc__id_sa__45F365D3" FromRole="rej_samochody" ToRole="samochody" />
+          <NavigationProperty Name="wynajem" Relationship="Self.FK__wynajem__nr_reje__46E78A0C" FromRole="rej_samochody" ToRole="wynajem" />
+        </EntityType>
+        <EntityType Name="samochody">
+          <Key>
+            <PropertyRef Name="id_samochodu" />
+          </Key>
+          <Property Name="id_samochodu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nr_rejestracyjny" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="marka" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="wersja" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="rocznik" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="poj_silnika" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="rodzaj_paliwa" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="przebieg" Type="Int32" Nullable="false" />
+          <Property Name="id_cennik" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cennik" Relationship="Self.FK__samochody__id_ce__440B1D61" FromRole="samochody" ToRole="cennik" />
+          <NavigationProperty Name="rej_samochody" Relationship="Self.FK__rej_samoc__id_sa__45F365D3" FromRole="samochody" ToRole="rej_samochody" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="wynajem">
+          <Key>
+            <PropertyRef Name="id_wynajmu" />
+          </Key>
+          <Property Name="id_wynajmu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_pracownika" Type="Int32" />
+          <Property Name="id_klienta" Type="Int32" />
+          <Property Name="nr_rejestracyjny" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="data_od" Type="DateTime" Precision="0" />
+          <Property Name="data_do" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="klienci" Relationship="Self.FK__wynajem__id_klie__44FF419A" FromRole="wynajem" ToRole="klienci" />
+          <NavigationProperty Name="pracownicy" Relationship="Self.FK__wynajem__id_prac__47DBAE45" FromRole="wynajem" ToRole="pracownicy" />
+          <NavigationProperty Name="rej_samochody" Relationship="Self.FK__wynajem__nr_reje__46E78A0C" FromRole="wynajem" ToRole="rej_samochody" />
+        </EntityType>
+        <Association Name="FK__samochody__id_ce__440B1D61">
+          <End Role="cennik" Type="Self.cennik" Multiplicity="1" />
+          <End Role="samochody" Type="Self.samochody" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cennik">
+              <PropertyRef Name="id_cennik" />
+            </Principal>
+            <Dependent Role="samochody">
+              <PropertyRef Name="id_cennik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wynajem__id_klie__44FF419A">
+          <End Role="klienci" Type="Self.klienci" Multiplicity="0..1" />
+          <End Role="wynajem" Type="Self.wynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klienci">
+              <PropertyRef Name="id_klienta" />
+            </Principal>
+            <Dependent Role="wynajem">
+              <PropertyRef Name="id_klienta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wynajem__id_prac__47DBAE45">
+          <End Role="pracownicy" Type="Self.pracownicy" Multiplicity="0..1" />
+          <End Role="wynajem" Type="Self.wynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pracownicy">
+              <PropertyRef Name="id_pracownika" />
+            </Principal>
+            <Dependent Role="wynajem">
+              <PropertyRef Name="id_pracownika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rej_samoc__id_sa__45F365D3">
+          <End Role="samochody" Type="Self.samochody" Multiplicity="0..1" />
+          <End Role="rej_samochody" Type="Self.rej_samochody" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="samochody">
+              <PropertyRef Name="id_samochodu" />
+            </Principal>
+            <Dependent Role="rej_samochody">
+              <PropertyRef Name="id_samochodu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wynajem__nr_reje__46E78A0C">
+          <End Role="rej_samochody" Type="Self.rej_samochody" Multiplicity="0..1" />
+          <End Role="wynajem" Type="Self.wynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rej_samochody">
+              <PropertyRef Name="nr_rejestracyjny" />
+            </Principal>
+            <Dependent Role="wynajem">
+              <PropertyRef Name="nr_rejestracyjny" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentalCarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cennik" EntityType="Self.cennik" />
+          <EntitySet Name="klienci" EntityType="Self.klienci" />
+          <EntitySet Name="pracownicy" EntityType="Self.pracownicy" />
+          <EntitySet Name="rej_samochody" EntityType="Self.rej_samochody" />
+          <EntitySet Name="samochody" EntityType="Self.samochody" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="wynajem" EntityType="Self.wynajem" />
+          <AssociationSet Name="FK__samochody__id_ce__440B1D61" Association="Self.FK__samochody__id_ce__440B1D61">
+            <End Role="cennik" EntitySet="cennik" />
+            <End Role="samochody" EntitySet="samochody" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wynajem__id_klie__44FF419A" Association="Self.FK__wynajem__id_klie__44FF419A">
+            <End Role="klienci" EntitySet="klienci" />
+            <End Role="wynajem" EntitySet="wynajem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wynajem__id_prac__47DBAE45" Association="Self.FK__wynajem__id_prac__47DBAE45">
+            <End Role="pracownicy" EntitySet="pracownicy" />
+            <End Role="wynajem" EntitySet="wynajem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rej_samoc__id_sa__45F365D3" Association="Self.FK__rej_samoc__id_sa__45F365D3">
+            <End Role="samochody" EntitySet="samochody" />
+            <End Role="rej_samochody" EntitySet="rej_samochody" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wynajem__nr_reje__46E78A0C" Association="Self.FK__wynajem__nr_reje__46E78A0C">
+            <End Role="rej_samochody" EntitySet="rej_samochody" />
+            <End Role="wynajem" EntitySet="wynajem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentalCarModelStoreContainer" CdmEntityContainer="RentalCarEntities">
+          <EntitySetMapping Name="cennik">
+            <EntityTypeMapping TypeName="RentalCarModel.cennik">
+              <MappingFragment StoreEntitySet="cennik">
+                <ScalarProperty Name="id_cennik" ColumnName="id_cennik" />
+                <ScalarProperty Name="kategoria" ColumnName="kategoria" />
+                <ScalarProperty Name="cena_za_dobe" ColumnName="cena_za_dobe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="klienci">
+            <EntityTypeMapping TypeName="RentalCarModel.klienci">
+              <MappingFragment StoreEntitySet="klienci">
+                <ScalarProperty Name="id_klienta" ColumnName="id_klienta" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="miasto" ColumnName="miasto" />
+                <ScalarProperty Name="ulica" ColumnName="ulica" />
+                <ScalarProperty Name="kod" ColumnName="kod" />
+                <ScalarProperty Name="pesel" ColumnName="pesel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pracownicy">
+            <EntityTypeMapping TypeName="RentalCarModel.pracownicy">
+              <MappingFragment StoreEntitySet="pracownicy">
+                <ScalarProperty Name="id_pracownika" ColumnName="id_pracownika" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="dzial" ColumnName="dzial" />
+                <ScalarProperty Name="stanowisko" ColumnName="stanowisko" />
+                <ScalarProperty Name="pensja" ColumnName="pensja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rej_samochody">
+            <EntityTypeMapping TypeName="RentalCarModel.rej_samochody">
+              <MappingFragment StoreEntitySet="rej_samochody">
+                <ScalarProperty Name="nr_rejestracyjny" ColumnName="nr_rejestracyjny" />
+                <ScalarProperty Name="id_samochodu" ColumnName="id_samochodu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="samochody">
+            <EntityTypeMapping TypeName="RentalCarModel.samochody">
+              <MappingFragment StoreEntitySet="samochody">
+                <ScalarProperty Name="id_samochodu" ColumnName="id_samochodu" />
+                <ScalarProperty Name="nr_rejestracyjny" ColumnName="nr_rejestracyjny" />
+                <ScalarProperty Name="marka" ColumnName="marka" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="wersja" ColumnName="wersja" />
+                <ScalarProperty Name="rocznik" ColumnName="rocznik" />
+                <ScalarProperty Name="poj_silnika" ColumnName="poj_silnika" />
+                <ScalarProperty Name="rodzaj_paliwa" ColumnName="rodzaj_paliwa" />
+                <ScalarProperty Name="przebieg" ColumnName="przebieg" />
+                <ScalarProperty Name="id_cennik" ColumnName="id_cennik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RentalCarModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wynajem">
+            <EntityTypeMapping TypeName="RentalCarModel.wynajem">
+              <MappingFragment StoreEntitySet="wynajem">
+                <ScalarProperty Name="id_wynajmu" ColumnName="id_wynajmu" />
+                <ScalarProperty Name="id_pracownika" ColumnName="id_pracownika" />
+                <ScalarProperty Name="id_klienta" ColumnName="id_klienta" />
+                <ScalarProperty Name="nr_rejestracyjny" ColumnName="nr_rejestracyjny" />
+                <ScalarProperty Name="data_od" ColumnName="data_od" />
+                <ScalarProperty Name="data_do" ColumnName="data_do" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
