@@ -23,5 +23,10 @@ namespace ProjectC_github
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

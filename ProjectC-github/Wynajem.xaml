@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="Wynajem" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Wynajem" Foreground="White" ResizeMode="CanResizeWithGrip" Width="500" Background="#04c582">
+    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label FontSize="25" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Wynajmij Samochód" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pracownik" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="1" Grid.Column="2" x:Name="Pracownicy" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Klient" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="2" Grid.Column="2" x:Name="Klienci" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Nr Rej" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="3" Grid.Column="2" x:Name="Nr_rej" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="Data od" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <DatePicker Grid.Row="4" Grid.Column="2" x:Name="DataOd" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Data do"></TextBlock>
+                <DatePicker Grid.Row="5" Grid.Column="2" x:Name="DataDo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Button Grid.Row="6" Grid.ColumnSpan="4" Click="Button_Click" Content="Wynajmij" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+            </Grid>
+        </StackPanel>
+    </Border>
 </Window>
