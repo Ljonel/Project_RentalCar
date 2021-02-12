@@ -20,10 +20,34 @@ namespace ProjectC_github
     /// </summary>
     public partial class MainWindow : Window
     {
+        RentalCarEntities _db = new RentalCarEntities();
+
         public MainWindow()
         {
             InitializeComponent();
+            var query = from item in _db.samochody
+                        select new CarShape
+                        {
+                            id_samochodu = item.id_samochodu,
+                            nr_rejestracyjny = item.nr_rejestracyjny,
+                            marka = item.marka,
+                            model = item.model,
+                            wersja = item.wersja,
+                            rocznik = item.rocznik,
+                            poj_silnika = item.poj_silnika,
+                            rodzaj_paliwa = item.rodzaj_paliwa,
+                            przebieg= item.przebieg,
+                            cena = item.cennik.cena_za_dobe,
+                        };
+            tab_samochody.ItemsSource = query.ToList();
         }
+
+
+
+
+
+
+
 
         private void Wynajem_Click(object sender, RoutedEventArgs e)
         {

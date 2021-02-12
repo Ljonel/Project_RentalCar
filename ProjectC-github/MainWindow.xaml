@@ -19,15 +19,15 @@
         <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
             <DataGrid GridLinesVisibility="None" Background="#2e3137" x:Name="tab_samochody" x:FieldModifier="public" AutoGenerateColumns="False" ColumnWidth="*">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Nr_Rej" Binding="{Binding Nr_rej}"/>
-                    <DataGridTextColumn Header="Marka" Binding="{Binding Marka}"/>
-                    <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
-                    <DataGridTextColumn Header="Rocznik" Binding="{Binding Rocznik}"/>
-                    <DataGridTextColumn Header="Poj_silnika" Binding="{Binding Poj_silnika}"/>
-                    <DataGridTextColumn Header="Rodzaj_paliwa" Binding="{Binding Rodzaj_paliwa}"/>
-                    <DataGridTextColumn Header="Przebieg" Binding="{Binding Przebieg}"/>
-                    <DataGridTextColumn Header="Cena" Binding="{Binding Cena}"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding id_samochodu}"/>
+                    <DataGridTextColumn Header="Nr_Rej" Binding="{Binding nr_rejestracyjny}"/>
+                    <DataGridTextColumn Header="Marka" Binding="{Binding marka}"/>
+                    <DataGridTextColumn Header="Model" Binding="{Binding model}"/>
+                    <DataGridTextColumn Header="Rocznik" Binding="{Binding rocznik}"/>
+                    <DataGridTextColumn Header="Poj_silnika" Binding="{Binding poj_silnika}"/>
+                    <DataGridTextColumn Header="Rodzaj_paliwa" Binding="{Binding rodzaj_paliwa}"/>
+                    <DataGridTextColumn Header="Przebieg" Binding="{Binding przebieg}"/>
+                    <DataGridTextColumn Header="Cena" Binding="{Binding cena}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
