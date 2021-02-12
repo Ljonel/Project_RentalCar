@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Wypożyczalnia" Height="450" Width="800" Background="#2e3137">
     <Grid>
         <Grid.RowDefinitions >
             <RowDefinition Height="2*"/>
@@ -34,9 +34,12 @@
 
         <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="25" Foreground="#04c582" VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="System Wypożyczalni Samochodów"></Label>
         <DockPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button Margin="30" Width="70" Height="40" Click="Button_Click" Content="Wynajem"></Button>
-            <Button Margin="30" Width="70" Height="40" Content="Pracownicy"></Button>
-            <Button Margin="30" Width="70" Height="40" Content="Klienci"></Button>
+            <Button Margin="30" Width="70" Height="40" Content="Wynajem" Click="Wynajem_Click"></Button>
+            <Button Margin="30" Width="70" Height="40" Content="Pracownicy" Click="Pracownicy_Click"></Button>
+            <Button Margin="30" Width="70" Height="40" Content="Klienci" Click="Klienci_Click"></Button>
         </DockPanel>
+        
     </Grid>
+    
+    
 </Window>

@@ -24,5 +24,21 @@ namespace ProjectC_github
         {
             InitializeComponent();
         }
+
+        private void Wynajem_Click(object sender, RoutedEventArgs e)
+        {
+            Wynajem wyn = new Wynajem();
+            wyn.ShowDialog();
+        }
+        private void Pracownicy_Click(object sender, RoutedEventArgs e)
+        {
+            Pracownicy prac = new Pracownicy();
+            prac.ShowDialog();
+        }
+        private void Klienci_Click(object sender, RoutedEventArgs e)
+        {
+            Klienci kl = new Klienci();
+            kl.ShowDialog();
+        }
     }
 }
