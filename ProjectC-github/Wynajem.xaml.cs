@@ -23,10 +23,7 @@ namespace ProjectC_github
         IList<string> nrRej = new List<string>();
         IList<int> employeeList= new List<int>();
         IList<int> clientList = new List<int>();
-        /*    var nrQuery =
-                    (from item in _db.samochody select item.nr_rejestracyjny)
-                    .Except(from emp in _db.wynajem select emp.nr_rejestracyjny);
-        */
+       
         public Wynajem()
         {
 
