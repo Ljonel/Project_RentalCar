@@ -25,6 +25,11 @@ namespace ProjectC_github
         public MainWindow()
         {
             InitializeComponent();
+            ShowCars();
+        }
+
+        private void ShowCars()
+        {
             var query = from item in _db.samochody
                         select new CarShape
                         {
@@ -36,13 +41,11 @@ namespace ProjectC_github
                             rocznik = item.rocznik,
                             poj_silnika = item.poj_silnika,
                             rodzaj_paliwa = item.rodzaj_paliwa,
-                            przebieg= item.przebieg,
+                            przebieg = item.przebieg,
                             cena = item.cennik.cena_za_dobe,
                         };
             tab_samochody.ItemsSource = query.ToList();
         }
-
-
 
 
 

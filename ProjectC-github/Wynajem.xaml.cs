@@ -23,7 +23,7 @@ namespace ProjectC_github
         {
             InitializeComponent();
         }
-
+        wynajem w;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 

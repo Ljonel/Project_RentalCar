@@ -45,6 +45,21 @@
 
                 <Button Grid.Row="6" Grid.ColumnSpan="4" Click="Button_Click" Content="Wynajmij" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
             </Grid>
+            <Label FontSize="10" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Grid>
+                <DataGrid ColumnWidth="*" FontSize="10" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id wynajecia" Binding="{Binding Id_wynaj}"/>
+                        <DataGridTextColumn Header="Nr Rej" Binding="{Binding Nr_Rej}"/>
+                        <DataGridTextColumn Header="Marka" Binding="{Binding Marka}"/>
+                        <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
+                        <DataGridTextColumn Header="Data_Od" Binding="{Binding Data_od}"/>
+                        <DataGridTextColumn Header="Data_Do" Binding="{Binding Data_do}"/>
+                        <DataGridTextColumn Header="Id_Pracownika" Binding="{Binding Id_prac}"/>
+                        <DataGridTextColumn Header="Id_Klienta" Binding="{Binding Id_kli}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </StackPanel>
     </Border>
 </Window>
