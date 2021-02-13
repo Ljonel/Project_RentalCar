@@ -25,18 +25,18 @@
                 <Label FontSize="25" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Pracownicy" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Imie" VerticalAlignment="Center" />
-                <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <TextBox x:Name="Imie" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Nazwisko" VerticalAlignment="Center" />
-                <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <TextBox x:Name="Nazwisko" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Dział" VerticalAlignment="Center" />
-                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="combobox_dzial" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="Combobox_dzial" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pensja" VerticalAlignment="Center" />
-                <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
-
-                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
+    
+                <TextBox PreviewTextInput="Pensja_walidacja" x:Name="Pensja" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <Button Click="AddEmployee_Click" Grid.Row="5" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
                 <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
                 <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
 

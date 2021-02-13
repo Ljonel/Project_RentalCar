@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace ProjectC_github
 {
@@ -26,7 +27,7 @@ namespace ProjectC_github
         public Pracownicy()
         {
             InitializeComponent();
-            combobox_dzial.ItemsSource = sections;
+            Combobox_dzial.ItemsSource = sections;
             ShowEmployees();
         }
 
@@ -43,5 +44,30 @@ namespace ProjectC_github
                         };
             tab_pracownicy.ItemsSource = q.ToList();
         }
+
+        private void AddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(Imie.Text) || String.IsNullOrEmpty(Nazwisko.Text) || String.IsNullOrEmpty(Pensja.Text) || String.IsNullOrEmpty(Combobox_dzial.Text))
+            {
+                MessageBox.Show("Wprowadź dane");
+            }
+            else
+            {
+                MessageBox.Show("Wprowadzono dane");
+
+              
+            }
+        }
+
+        private void Pensja_walidacja(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            e.Handled = IsTextNumeric(e.Text);
+        }
+        private static bool IsTextNumeric(string str)
+        {
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex("[^0-9]");
+            return reg.IsMatch(str);
+        }
+
     }
 }

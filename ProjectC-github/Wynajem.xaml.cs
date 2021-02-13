@@ -64,7 +64,6 @@ namespace ProjectC_github
         /// </summary>
         private void ShowRentalcar()
         {
-           
                 var rental = (from ep in _db.samochody
                            join e in _db.wynajem
                            on ep.nr_rejestracyjny
@@ -85,7 +84,17 @@ namespace ProjectC_github
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-        
+            var addCar = new wynajem()
+            {
+                data_od = Convert.ToDateTime(DataOd.Text),
+                data_do = Convert.ToDateTime(DataDo.Text),
+                nr_rejestracyjny = Nr_rej.SelectedItem.ToString(),
+                id_pracownika = Convert.ToInt32(Pracownicy.SelectedItem),
+                id_klienta = Convert.ToInt32(Klienci.SelectedItem)
+            };
+            _db.wynajem.Add(addCar);
+            _db.SaveChanges();
+            this.Hide();
         }
     }
 }
