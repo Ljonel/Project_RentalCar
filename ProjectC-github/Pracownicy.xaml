@@ -31,7 +31,7 @@
                 <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Dział" VerticalAlignment="Center" />
-                <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="combobox_dzial" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pensja" VerticalAlignment="Center" />
                 <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />

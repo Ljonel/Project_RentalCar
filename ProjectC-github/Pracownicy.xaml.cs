@@ -19,9 +19,14 @@ namespace ProjectC_github
     /// </summary>
     public partial class Pracownicy : Window
     {
+        RentalCarEntities _db = new RentalCarEntities();
+
+        //Lista działów dla pracowników dostępnych w wypożyczalni
+        IList<string> sections = new List<string> { "Wypożyczenia", "Marketing"};
         public Pracownicy()
         {
             InitializeComponent();
+            combobox_dzial.ItemsSource = sections;
         }
     }
 }
