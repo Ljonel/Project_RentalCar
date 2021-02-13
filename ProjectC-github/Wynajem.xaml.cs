@@ -20,13 +20,10 @@ namespace ProjectC_github
     public partial class Wynajem : Window
     {
         RentalCarEntities _db = new RentalCarEntities();
-        IList<string> nrRej = new List<string>();
         IList<int> employeeList= new List<int>();
         IList<int> clientList = new List<int>();
-        /*    var nrQuery =
-                    (from item in _db.samochody select item.nr_rejestracyjny)
-                    .Except(from emp in _db.wynajem select emp.nr_rejestracyjny);
-        */
+
+        
         public Wynajem()
         {
             InitializeComponent();
@@ -36,13 +33,16 @@ namespace ProjectC_github
 
         private void ShowCombobox()
         {
-            var nrQuery = from item in _db.rej_samochody select item;
+            ///summary
+            ///Polecenie wyciągające z bazy tylko te samochody które aktualnie nie są wypożyczone
+            ///summary 
+            var nrQuery =
+                    (from item in _db.samochody select item.nr_rejestracyjny)
+                    .Except(from emp in _db.wynajem select emp.nr_rejestracyjny);
+            
             var employeeQuery = from item in _db.pracownicy select item;
             var clientsQuery = from item in _db.klienci select item;
-            foreach (var item in nrQuery)
-            {
-                nrRej.Add(item.nr_rejestracyjny);
-            }
+           
             foreach (var item in employeeQuery)
             {
                 employeeList.Add(item.id_pracownika);
@@ -52,7 +52,7 @@ namespace ProjectC_github
                 clientList.Add(item.id_klienta);
             }
 
-            Nr_rej.ItemsSource = nrRej;
+            Nr_rej.ItemsSource = nrQuery.ToList();
             Pracownicy.ItemsSource = employeeList;
             Klienci.ItemsSource = clientList;
         }
@@ -82,7 +82,6 @@ namespace ProjectC_github
                            }).OrderBy(x=>x.Id_wynaj);
                 tab_wynajem.ItemsSource = rental.ToList();
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

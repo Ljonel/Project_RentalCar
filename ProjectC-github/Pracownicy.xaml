@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="Pracownicy" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Pracownicy" Foreground="White" ResizeMode="CanResizeWithGrip" Height="500" Background="#04c582">
+    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        <StackPanel>
+            <Grid Height="429">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label FontSize="25" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Pracownicy" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Imie" VerticalAlignment="Center" />
+                <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Nazwisko" VerticalAlignment="Center" />
+                <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+
+                <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Dział" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+
+                <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pensja" VerticalAlignment="Center" />
+                <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+
+                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
+                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
+                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
+
+                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" x:Name="tab_pracownicy" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="20" Header="Id_Pracownika" Binding="{Binding Id_prac}"/>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding Imie}"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
+                        <DataGridTextColumn Header="Dział" Binding="{Binding Dzial}"/>
+                        <DataGridTextColumn Header="Pensja" Binding="{Binding Pensja}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            
+                
+        </StackPanel>
+    </Border>
 </Window>
