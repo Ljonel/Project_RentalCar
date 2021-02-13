@@ -27,6 +27,21 @@ namespace ProjectC_github
         {
             InitializeComponent();
             combobox_dzial.ItemsSource = sections;
+            ShowEmployees();
+        }
+
+        private void ShowEmployees()
+        {
+            var q = from item in _db.pracownicy
+                        select new
+                        {
+                            Id_prac = item.id_pracownika,
+                            Imie = item.imie,
+                            Nazwisko = item.nazwisko,
+                            Dzial = item.dzial,
+                            Pensja = item.pensja
+                        };
+            tab_pracownicy.ItemsSource = q.ToList();
         }
     }
 }
