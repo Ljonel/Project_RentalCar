@@ -53,12 +53,22 @@ namespace ProjectC_github
             }
             else
             {
-                MessageBox.Show("Wprowadzono dane");
-
-              
+               var addEmployee = new pracownicy()
+               {
+                   imie = Imie.Text,
+                   nazwisko = Nazwisko.Text,
+                   dzial = Combobox_dzial.SelectedItem.ToString(),
+                   pensja = Convert.ToDecimal(Pensja.Text),
+               };
+               _db.pracownicy.Add(addEmployee);
+               _db.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Walidacja formularza, funkcja sprawdza czy w polu "pensja" wprowadzane są tylko wartości liczbowe.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Pensja_walidacja(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
