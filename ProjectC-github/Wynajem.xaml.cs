@@ -57,13 +57,14 @@ namespace ProjectC_github
             Klienci.ItemsSource = clientList;
         }
 
+        /// <summary>
+        /// SELECT wynajem.nr_rejestracyjny, wynajem.id_wynajmu, samochody.marka 
+        /// FROM samochody 
+        /// JOIN wynajem ON wynajem.nr_rejestracyjny=samochody.nr_rejestracyjny;
+        /// </summary>
         private void ShowRentalcar()
         {
-            /// <summary>
-            /// SELECT wynajem.nr_rejestracyjny, wynajem.id_wynajmu, samochody.marka 
-            /// FROM samochody 
-            /// JOIN wynajem ON wynajem.nr_rejestracyjny=samochody.nr_rejestracyjny;
-            /// </summary>
+           
                 var rental = (from ep in _db.samochody
                            join e in _db.wynajem
                            on ep.nr_rejestracyjny
@@ -78,7 +79,7 @@ namespace ProjectC_github
                                Data_do = e.data_do,
                                Id_prac = e.id_pracownika,
                                Id_kli = e.id_klienta
-                           });
+                           }).OrderBy(x=>x.Id_wynaj);
                 tab_wynajem.ItemsSource = rental.ToList();
         }
 
