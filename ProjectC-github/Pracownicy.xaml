@@ -8,8 +8,9 @@
         Title="Pracownicy" Foreground="White" ResizeMode="CanResizeWithGrip" Height="500" Background="#04c582">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel>
-            <Grid Height="429">
+            <Grid Height="429" x:Name="DanePracownikow">
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -23,7 +24,6 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Label FontSize="25" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Pracownicy" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Imie" VerticalAlignment="Center" />
                 <TextBox x:Name="Imie" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
@@ -33,26 +33,54 @@
                 <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Dział" VerticalAlignment="Center" />
                 <ComboBox Grid.Row="3" Grid.Column="1" x:Name="Combobox_dzial" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
-                <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pensja" VerticalAlignment="Center" />
-    
-                <TextBox PreviewTextInput="Pensja_walidacja" x:Name="Pensja" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
-                <Button Click="AddEmployee_Click" Grid.Row="5" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
-                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
-                <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Stanowisko" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="4" Grid.Column="1" x:Name="Combobox_stanowisko" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
-                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" x:Name="tab_pracownicy" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
+                <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pensja" VerticalAlignment="Center" />
+                <TextBox PreviewTextInput="Walidacja_numer" x:Name="Pensja" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <Button Click="AddEmployee_Click" Grid.Row="6" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
+                <Button Grid.Row="6" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
+                <Button Click="DeleteEmployee_Click" Grid.Row="6" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
+               
+                <Grid Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" Grid.RowSpan="3"  x:Name="InputBox" Visibility="Collapsed">
+                    <Grid Opacity="0.5"/>
+                    <Border
+                            MinWidth="250"
+                            Background="#04c582" 
+                            BorderBrush="Black" 
+                            BorderThickness="1" 
+                            CornerRadius="0,55,0,55" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock Margin="5" Text="Podaj ID" FontWeight="Bold" FontFamily="Cambria" />
+                            <TextBox PreviewTextInput="Walidacja_numer" MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="InputTextBox"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button x:Name="YesButton" Margin="5" Content="Usuń" Background="{x:Null}" Click="YesButton_Click"/>
+                                <Button x:Name="NoButton" Margin="5" Content="Anuluj" Background="{x:Null}" Click="NoButton_Click" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="6" x:Name="tab_pracownicy" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="20" Header="Id_Pracownika" Binding="{Binding Id_prac}"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding Imie}"/>
                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
                         <DataGridTextColumn Header="Dział" Binding="{Binding Dzial}"/>
+                        <DataGridTextColumn Header="Stanowisko" Binding="{Binding Stanowisko}"/>
                         <DataGridTextColumn Header="Pensja" Binding="{Binding Pensja}"/>
+
+                        <DataGridTemplateColumn Header="Edytuj Pracownika">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Edytuj" Click="EdytujPracownika_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-
-            
-                
         </StackPanel>
     </Border>
 </Window>
