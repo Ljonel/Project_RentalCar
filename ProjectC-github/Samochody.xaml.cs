@@ -182,16 +182,12 @@ namespace ProjectC_github
                     Paliwo.SelectedItem = item.paliwo;
                     Przebieg.Text = item.przebieg.ToString();
                     Kategoria.SelectedItem = category.kategoria;
-
                 }
-
             }
         }
-
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
-
         }
         private static bool IsTextNumeric(string str)
         {

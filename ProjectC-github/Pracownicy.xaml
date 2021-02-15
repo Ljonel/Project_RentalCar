@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="Pracownicy" Foreground="White" ResizeMode="CanResizeWithGrip" Height="500" Background="#04c582" Icon="Images/car.ico">
+        Title="Pracownicy" Foreground="White" ResizeMode="NoResize" Height="500" Background="#04c582" Icon="Images/car.ico">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel>
             <Grid Height="429" x:Name="DanePracownikow">

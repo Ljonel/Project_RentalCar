@@ -97,5 +97,9 @@ namespace ProjectC_github
             _db.SaveChanges();
             this.Hide();
         }
+        private void UsunWynajecie_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new WynajemUsun();
+        }
     }
 }

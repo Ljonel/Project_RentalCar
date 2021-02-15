@@ -106,6 +106,9 @@
     <Compile Include="Wynajem.xaml.cs">
       <DependentUpon>Wynajem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WynajemUsun.xaml.cs">
+      <DependentUpon>WynajemUsun.xaml</DependentUpon>
+    </Compile>
     <Page Include="Klienci.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wynajem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WynajemUsun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

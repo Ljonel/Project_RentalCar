@@ -43,7 +43,9 @@
                 <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Data do"></TextBlock>
                 <DatePicker Grid.Row="5" Grid.Column="2" x:Name="DataDo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <Button Grid.Row="6" Grid.ColumnSpan="4" Click="Button_Click" Content="Wynajmij" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" Content="Wynajmij" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Click="UsunWynajecie_Click" Content="Usuń wynajęcie" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+
             </Grid>
             <Label FontSize="10" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
             <Grid>
