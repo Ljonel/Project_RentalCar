@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="Samochody" Foreground="White" ResizeMode="CanResizeWithGrip" Height="600" Background="#04c582" Icon="Images/car.ico">
+        Title="Samochody" Foreground="White" ResizeMode="CanResizeWithGrip" Height="650" Background="#04c582" Icon="Images/car.ico">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel>
             <Grid Height="529" x:Name="DaneSamochody">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -53,20 +52,17 @@
                 <TextBox PreviewTextInput="Walidacja_numer" x:Name="Poj_silnika" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Paliwo" VerticalAlignment="Center" />
-                <TextBox PreviewTextInput="Walidacja_numer" x:Name="Paliwo" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <ComboBox x:Name="Paliwo" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Przebieg" VerticalAlignment="Center" />
                 <TextBox PreviewTextInput="Walidacja_numer" x:Name="Przebieg" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
                 <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Kategoria" VerticalAlignment="Center" />
-                <ComboBox PreviewTextInput="Walidacja_numer" x:Name="Kategoria" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
+                <ComboBox x:Name="Kategoria" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
-                <TextBlock Grid.Row="10" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Cena" VerticalAlignment="Center" />
-                <TextBox PreviewTextInput="Walidacja_numer" x:Name="Cena" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
-
-                <Button Click="AddCar_Click" Grid.Row="11" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
-                <Button Click="EditCar_Click" Grid.Row="11" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
-                <Button Click="DeleteCar_Click" Grid.Row="11" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
+                <Button Click="AddCar_Click" Grid.Row="10" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
+                <Button Click="EditCar_Click" Grid.Row="10" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
+                <Button Click="DeleteCar_Click" Grid.Row="10" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
 
                 <Grid Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" Grid.RowSpan="3"  x:Name="InputBox" Visibility="Collapsed">
                     <Grid Opacity="0.5"/>
@@ -88,9 +84,9 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-                    <DataGrid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="7" GridLinesVisibility="None" Background="#2e3137" x:Name="tab_samochody" x:FieldModifier="public" AutoGenerateColumns="False" ColumnWidth="*">
+                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="11" SelectedItem="{Binding SelectedItem}" x:Name="tab_samochody" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Id" Binding="{Binding id_samochodu}"/>
                             <DataGridTextColumn Header="Nr_rej" Binding="{Binding Nr_rej}"/>
                             <DataGridTextColumn Header="Marka" Binding="{Binding Marka}"/>
                             <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>

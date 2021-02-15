@@ -84,6 +84,7 @@ namespace ProjectC_github
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+           
             var addCar = new wynajem()
             {
                 data_od = Convert.ToDateTime(DataOd.Text),
