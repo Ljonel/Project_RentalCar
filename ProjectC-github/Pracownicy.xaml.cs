@@ -97,8 +97,6 @@ namespace ProjectC_github
                         Pensja.Text = item.pen.ToString();
                     }
             }
-            
-           
         }
         private void EditEmployee_Click(object sender, RoutedEventArgs e)
         {
@@ -119,6 +117,11 @@ namespace ProjectC_github
                     applyEdit.pensja = Convert.ToDecimal(Pensja.Text);
                     _db.SaveChanges();
                     MessageBox.Show("Operacja wykonna pomyślnie");
+                    Imie.Text = "";
+                    Nazwisko.Text = "";
+                    Combobox_dzial.SelectedItem = null;
+                    Combobox_stanowisko.SelectedItem = null;
+                    Pensja.Text = "";
                     ShowEmployees();
                 }
             }
