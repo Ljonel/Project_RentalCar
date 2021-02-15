@@ -69,13 +69,6 @@
                 </Grid>
                 <DataGrid  ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="6" SelectedItem="{Binding SelectedItem}" x:Name="tab_pracownicy" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Edytuj Pracownika">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="Edytuj"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                         <DataGridTextColumn Width="20" Header="Id_Pracownika"  Binding="{Binding Id_prac, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Imie" Binding="{Binding Imie, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko, Mode=OneWay}"/>
