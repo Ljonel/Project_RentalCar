@@ -29,7 +29,6 @@ namespace ProjectC_github
             Kategoria.ItemsSource = categories;
             Paliwo.ItemsSource = fuel;
             ShowCars();
-     
         }
         private void ShowCars()
         {
@@ -62,7 +61,7 @@ namespace ProjectC_github
             {
                 try
                 {
-                    //Tutaj mialem wielki problem zeby to wymyslic, na szczęscie wpadłem w koncu na to jak poprawnie dodawac id cennika za pomocą kategorii z formularza
+                    //Tutaj przez to jak skonstruowałem sobie baze mialem wielki problem zeby to wymyslic, na szczęscie wpadłem w koncu na to jak poprawnie dodawac id cennika za pomocą kategorii z formularza
                     /*   Something like this in sql
                        INSERT INTO samochody (nr_rejestracyjny, marka, model, wersja, rocznik, poj_silnika, rodzaj_paliwa,przebieg,id_cennik)
                        VALUES ('WB 013','Toyota','Yaris','3','2020','2000','benzyna','2000', (SELECT id_cennik FROM cennik WHERE kategoria LIKE 'Samochody luksusowe'));
@@ -152,7 +151,41 @@ namespace ProjectC_github
         }
         private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
-           
+            TextBox tb = sender as TextBox;
+            if (tb != null && ID.Text.Length != 0)
+            {
+                var id = int.Parse(ID.Text);
+                var editQuery = from item in _db.samochody
+                                where item.id_samochodu.Equals(id)
+                                select new
+                                {
+                                    id = item.id_samochodu,
+                                    nr = item.nr_rejestracyjny,
+                                    marka= item.marka,
+                                    model = item.model,
+                                    wersja = item.wersja,
+                                    rocznik = item.rocznik,
+                                    poj = item.poj_silnika,
+                                    paliwo = item.rodzaj_paliwa,
+                                    przebieg = item.przebieg,
+                                    id_c = item.id_cennik
+                                };
+                foreach (var item in editQuery)
+                {
+                    var category = _db.cennik.Where(x => x.id_cennik.Equals(item.id_c)).First();
+                    Nr_rej.Text = item.nr;
+                    Marka.Text = item.marka;
+                    Model.Text = item.model;
+                    Wersja.Text = item.wersja;
+                    Rocznik.Text = item.rocznik;
+                    Poj_silnika.Text = item.poj;
+                    Paliwo.SelectedItem = item.paliwo;
+                    Przebieg.Text = item.przebieg.ToString();
+                    Kategoria.SelectedItem = category.kategoria;
+
+                }
+
+            }
         }
 
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)

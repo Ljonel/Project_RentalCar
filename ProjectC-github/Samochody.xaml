@@ -64,14 +64,14 @@
                 <Button Click="EditCar_Click" Grid.Row="10" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
                 <Button Click="DeleteCar_Click" Grid.Row="10" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
 
-                <Grid Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" Grid.RowSpan="3"  x:Name="InputBox" Visibility="Collapsed">
+                <Grid Grid.Row="9" Grid.Column="2" Panel.ZIndex="1" Grid.RowSpan="3" Grid.ColumnSpan="2"  x:Name="InputBox" Visibility="Collapsed">
                     <Grid Opacity="0.5"/>
                     <Border
-                                    MinWidth="250"
+                                    MinWidth="150"
                                     Background="#04c582" 
                                     BorderBrush="Black" 
                                     BorderThickness="1" 
-                                    CornerRadius="0,55,0,55" 
+                                    CornerRadius="5,5,5,5" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Center">
                         <StackPanel>
@@ -84,7 +84,7 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="11" SelectedItem="{Binding SelectedItem}" x:Name="tab_samochody" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
+                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="8" SelectedItem="{Binding SelectedItem}" x:Name="tab_samochody" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding id_samochodu}"/>
                             <DataGridTextColumn Header="Nr_rej" Binding="{Binding Nr_rej}"/>
