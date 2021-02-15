@@ -45,7 +45,23 @@ namespace ProjectC_github
                           }).OrderBy(x => x.Id_wynaj);
             tab_wynajem.ItemsSource = rental.ToList();
         }
-        
+
+        private void DeleteRental()
+        {
+            if (String.IsNullOrEmpty(InputTextBox.Text))
+            {
+                MessageBox.Show("Wprowadź ID");
+            }
+            else
+            {
+                var id = int.Parse(InputTextBox.Text);
+                pracownicy deleteEmployee = _db.pracownicy.FirstOrDefault(x => x.id_pracownika.Equals(id));
+                _db.pracownicy.Remove(deleteEmployee);
+                _db.SaveChanges();
+                ShowRentalcar();
+                InputTextBox.Text = String.Empty;
+            }
+        }
 
     }
 }

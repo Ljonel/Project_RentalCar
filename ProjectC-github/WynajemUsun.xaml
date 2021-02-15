@@ -10,14 +10,15 @@
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             
             <StackPanel>
                 <Label FontSize="10" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                 <Grid>
-                    <DataGrid ColumnWidth="*" FontSize="10" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
+                    <DataGrid ColumnWidth="*"  FontSize="10" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id_wynajecia" Binding="{Binding Id_wynaj}"/>
                             <DataGridTextColumn Header="Nr_Rej" Binding="{Binding Nr_Rej}"/>
@@ -31,8 +32,9 @@
                     </DataGrid>
                 </Grid>
             </StackPanel>
-            <Label Foreground="Red" Grid.Row="1" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Podaj ID"/>
-            <TextBox Grid.Row="1" BorderBrush="Green" BorderThickness="2" Width="50" Height="20"/>
+            <Label Foreground="Red" Grid.Row="1" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Podaj ID"/>
+            <TextBox x:Name="InputTextBox" Grid.Row="1" Margin="0 20"  BorderBrush="Green" BorderThickness="2" Width="50" Height="20"/>
+            <Button Grid.Row="2" Width="50" Height="20" Content="Usuń"/>
         </Grid>
 
     </Border>
