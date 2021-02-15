@@ -71,26 +71,88 @@ namespace ProjectC_github
             }
            
         }
-        pracownicy selectedEmployee = new pracownicy();
-        private void EdytujPracownika_Click(object sender, RoutedEventArgs e)
+        private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
+            TextBox tb = sender as TextBox;
+            if (tb != null && ID.Text.Length != 0)
+            {
+                    var id = int.Parse(ID.Text);
+                    var editQuery = from item in _db.pracownicy
+                                    where item.id_pracownika.Equals(id)
+                                    select new
+                                    {
+                                        id = item.id_pracownika,
+                                        im = item.imie,
+                                        n = item.nazwisko,
+                                        dz = item.dzial,
+                                        stan = item.stanowisko,
+                                        pen = item.pensja
+                                    };
+                    foreach (var item in editQuery)
+                    {
+                        Imie.Text = item.im;
+                        Nazwisko.Text = item.n;
+                        Combobox_dzial.SelectedItem = item.dz;
+                        Combobox_stanowisko.SelectedItem = item.stan;
+                        Pensja.Text = item.pen.ToString();
+                    }
+            }
+            
+            /*
+                 var id = int.Parse(ID.Text);
+                    var editQuery = from item in _db.pracownicy
+                                    where item.id_pracownika.Equals(id)
+                                    select new
+                                    {
+                                        id = item.id_pracownika,
+                                        im = item.imie,
+                                        n = item.nazwisko,
+                                        dz = item.dzial,
+                                        stan = item.stanowisko,
+                                        pen = item.pensja
+                                    };
+                    foreach (var item in editQuery)
+                    {
+                        Imie.Text = item.im;
+                        Nazwisko.Text = item.n;
+                        Combobox_dzial.SelectedItem = item.dz;
+                        Combobox_stanowisko.SelectedItem = item.stan;
+                        Pensja.Text = item.pen.ToString();
+                    }
+                */
+
+        }
+        private void EditEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            // ID_textblock.Visibility = System.Windows.Visibility.Visible;
+            // ID.Visibility = System.Windows.Visibility.Visible;
+
            
         }
+
+
         private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
         {
             InputBox.Visibility = System.Windows.Visibility.Visible;
         }
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = int.Parse(InputTextBox.Text);
-            pracownicy deleteEmployee = _db.pracownicy.FirstOrDefault(x => x.id_pracownika.Equals(id));
-            _db.pracownicy.Remove(deleteEmployee);
-            _db.SaveChanges();
-            ShowEmployees();
-            // After Yes hide this button
-            InputBox.Visibility = System.Windows.Visibility.Collapsed;
-            // Clear InputBox
-            InputTextBox.Text = String.Empty;
+            if (String.IsNullOrEmpty(InputTextBox.Text))
+            {
+                MessageBox.Show("Wprowadź ID");
+            }
+            else
+            {
+                var id = int.Parse(InputTextBox.Text);
+                pracownicy deleteEmployee = _db.pracownicy.FirstOrDefault(x => x.id_pracownika.Equals(id));
+                _db.pracownicy.Remove(deleteEmployee);
+                _db.SaveChanges();
+                ShowEmployees();
+                // After Yes hide this button
+                InputBox.Visibility = System.Windows.Visibility.Collapsed;
+                // Clear InputBox
+                InputTextBox.Text = String.Empty;
+            }
         }
 
         private void NoButton_Click(object sender, RoutedEventArgs e)
@@ -100,6 +162,8 @@ namespace ProjectC_github
             // Clear InputBox
             InputTextBox.Text = String.Empty;
         }
+
+
         /// <summary>
         /// Walidacja formularza, funkcja sprawdza czy w elemencie w XAML zawierającym PrevierTextInput="Walidacja_numer" wprowadzane są tylko wartości liczbowe.
         /// </summary>
@@ -109,6 +173,7 @@ namespace ProjectC_github
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
+        
         }
         private static bool IsTextNumeric(string str)
         {

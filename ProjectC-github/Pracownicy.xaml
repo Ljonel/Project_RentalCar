@@ -24,6 +24,11 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Label FontSize="25" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Pracownicy" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+                <!-- ID here only for editing -->
+                <TextBlock x:Name="ID_tb" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="ID" VerticalAlignment="Bottom" />
+                <TextBox PreviewTextInput="Walidacja_numer" TextChanged="tb_GotFocus" x:Name="ID" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Bottom" Width="40" />
+
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Imie" VerticalAlignment="Center" />
                 <TextBox x:Name="Imie" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
 
@@ -39,7 +44,7 @@
                 <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Pensja" VerticalAlignment="Center" />
                 <TextBox PreviewTextInput="Walidacja_numer" x:Name="Pensja" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="120" />
                 <Button Click="AddEmployee_Click" Grid.Row="6" Grid.ColumnSpan="2" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 200 0"/>
-                <Button Grid.Row="6" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
+                <Button Click="EditEmployee_Click" Grid.Row="6" Grid.ColumnSpan="2" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="0 0 0 0"/>
                 <Button Click="DeleteEmployee_Click" Grid.Row="6" Grid.ColumnSpan="2" Content="Usun" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Margin="200 0 0 0"/>
                
                 <Grid Grid.Row="4" Grid.Column="2" Panel.ZIndex="1" Grid.RowSpan="3"  x:Name="InputBox" Visibility="Collapsed">
@@ -62,22 +67,21 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-                <DataGrid ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="6" x:Name="tab_pracownicy" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
+                <DataGrid  ColumnWidth="*" Grid.Row="1" Grid.Column="2" Grid.RowSpan="6" SelectedItem="{Binding SelectedItem}" x:Name="tab_pracownicy" x:FieldModifier="public" AutoGenerateColumns="False" Margin="0 0 10 20">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="20" Header="Id_Pracownika" Binding="{Binding Id_prac}"/>
-                        <DataGridTextColumn Header="Imie" Binding="{Binding Imie}"/>
-                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
-                        <DataGridTextColumn Header="Dział" Binding="{Binding Dzial}"/>
-                        <DataGridTextColumn Header="Stanowisko" Binding="{Binding Stanowisko}"/>
-                        <DataGridTextColumn Header="Pensja" Binding="{Binding Pensja}"/>
-
                         <DataGridTemplateColumn Header="Edytuj Pracownika">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Edytuj" Click="EdytujPracownika_Click"/>
+                                    <Button Content="Edytuj"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="20" Header="Id_Pracownika"  Binding="{Binding Id_prac, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Imie" Binding="{Binding Imie, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Dział" Binding="{Binding Dzial, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Stanowisko" Binding="{Binding Stanowisko, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Pensja" Binding="{Binding Pensja, Mode=OneWay}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
