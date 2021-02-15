@@ -21,7 +21,7 @@
         <Image Source="Images/baner.png" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.RowSpan="1"/>
 
         <DockPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-           <Button Margin="30" Width="70" Height="40" Content="Samochody"></Button>
+           <Button Margin="30" Width="70" Height="40" Content="Samochody" Click="Samochody_Click"></Button>
             <Button Margin="30" Width="70" Height="40" Content="Wynajem" Click="Wynajem_Click"></Button>
             <Button Margin="30" Width="70" Height="40" Content="Pracownicy" Click="Pracownicy_Click"></Button>
             <Button Margin="30" Width="70" Height="40" Content="Klienci" Click="Klienci_Click"></Button>

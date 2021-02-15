@@ -62,6 +62,11 @@ namespace ProjectC_github
             Klienci kl = new Klienci();
             kl.ShowDialog();
         }
+        private void Samochody_Click(object sender, RoutedEventArgs e)
+        {
+            Samochody s = new Samochody();
+            s.ShowDialog();
+        }
     
     }
 }
