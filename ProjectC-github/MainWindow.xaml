@@ -5,41 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="Wypożyczalnia" Height="450" Width="800" Background="#2e3137">
+        Title="Wypożyczalnia" Height="450" Width="800" Background="#2e3137" Icon="Images/car.ico" >
     <Grid>
         <Grid.RowDefinitions >
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2.5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions >
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <DataGrid GridLinesVisibility="None" Background="#2e3137" x:Name="tab_samochody" x:FieldModifier="public" AutoGenerateColumns="False" ColumnWidth="*">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding id_samochodu}"/>
-                    <DataGridTextColumn Header="Nr_Rej" Binding="{Binding nr_rejestracyjny}"/>
-                    <DataGridTextColumn Header="Marka" Binding="{Binding marka}"/>
-                    <DataGridTextColumn Header="Model" Binding="{Binding model}"/>
-                    <DataGridTextColumn Header="Rocznik" Binding="{Binding rocznik}"/>
-                    <DataGridTextColumn Header="Poj_silnika" Binding="{Binding poj_silnika}"/>
-                    <DataGridTextColumn Header="Rodzaj_paliwa" Binding="{Binding rodzaj_paliwa}"/>
-                    <DataGridTextColumn Header="Przebieg" Binding="{Binding przebieg}"/>
-                    <DataGridTextColumn Header="Cena" Binding="{Binding cena}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" FontSize="25" Foreground="#04c582" VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="System Wypożyczalni Samochodów"></Label>
 
-        <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="25" Foreground="#04c582" VerticalContentAlignment="Center" HorizontalAlignment="Center" Content="System Wypożyczalni Samochodów"></Label>
+        <Image Source="Images/baner.png" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.RowSpan="1"/>
+
         <DockPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+           <Button Margin="30" Width="70" Height="40" Content="Samochody"></Button>
             <Button Margin="30" Width="70" Height="40" Content="Wynajem" Click="Wynajem_Click"></Button>
             <Button Margin="30" Width="70" Height="40" Content="Pracownicy" Click="Pracownicy_Click"></Button>
             <Button Margin="30" Width="70" Height="40" Content="Klienci" Click="Klienci_Click"></Button>
         </DockPanel>
-        
+
     </Grid>
-    
-    
+
+
 </Window>

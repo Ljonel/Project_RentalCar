@@ -25,9 +25,9 @@ namespace ProjectC_github
         public MainWindow()
         {
             InitializeComponent();
-            ShowCars();
+            //ShowCars();
         }
-
+        /*
         private void ShowCars()
         {
             var query = from item in _db.samochody
@@ -46,12 +46,7 @@ namespace ProjectC_github
                         };
             tab_samochody.ItemsSource = query.ToList();
         }
-
-
-
-
-
-
+        */
         private void Wynajem_Click(object sender, RoutedEventArgs e)
         {
             Wynajem wyn = new Wynajem();
@@ -67,5 +62,6 @@ namespace ProjectC_github
             Klienci kl = new Klienci();
             kl.ShowDialog();
         }
+    
     }
 }
