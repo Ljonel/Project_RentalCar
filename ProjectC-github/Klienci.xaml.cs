@@ -50,23 +50,60 @@ namespace ProjectC_github
             }
             else
             {
-                var addClient = new klienci()
+                try
                 {
-                    imie = Imie.Text,
-                    nazwisko = Nazwisko.Text,
-                    miasto = Miasto.Text,
-                    ulica = Ulica.Text,
-                    kod = Kod.Text,
-                    pesel = Pesel.Text
-                };
-                _db.klienci.Add(addClient);
-                _db.SaveChanges();
-                this.Hide();
+                    var addClient = new klienci()
+                    {
+                        imie = Imie.Text,
+                        nazwisko = Nazwisko.Text,
+                        miasto = Miasto.Text,
+                        ulica = Ulica.Text,
+                        kod = Kod.Text,
+                        pesel = Pesel.Text
+                    };
+                    _db.klienci.Add(addClient);
+                    _db.SaveChanges();
+                    ShowClients();
+                }
+                catch
+                {
+                    MessageBox.Show("Nie mozna wykonać operacji");
+
+                }
+
             }
         }
         private void EditClient_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                if (String.IsNullOrEmpty(Imie.Text) || String.IsNullOrEmpty(Nazwisko.Text) || String.IsNullOrEmpty(Miasto.Text) || String.IsNullOrEmpty(Ulica.Text) || String.IsNullOrEmpty(Kod.Text) || String.IsNullOrEmpty(Pesel.Text))
+                    MessageBox.Show("Nie można wykonać operacji");
+                else
+                {
+                    var id = int.Parse(ID.Text);
+                    var applyEdit = (from item in _db.klienci where item.id_klienta.Equals(id) select item).First();
+                    applyEdit.imie = Imie.Text;
+                    applyEdit.nazwisko = Nazwisko.Text;
+                    applyEdit.miasto = Miasto.Text;
+                    applyEdit.ulica = Ulica.Text;
+                    applyEdit.kod = Kod.Text;
+                    applyEdit.pesel = Pesel.Text;
+                    _db.SaveChanges();
+                    MessageBox.Show("Operacja wykonna pomyślnie");
+                    Imie.Text = "";
+                    Nazwisko.Text = "";
+                    Miasto.Text = null;
+                    Ulica.Text = null;
+                    Kod.Text = "";
+                    Pesel.Text = "";
+                    ShowClients();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nie można wykonać operacji");
+            }
         }
         private void DeleteClient_Click(object sender, RoutedEventArgs e)
         {
@@ -74,16 +111,58 @@ namespace ProjectC_github
         }
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            if (String.IsNullOrEmpty(InputTextBox.Text))
+            {
+                MessageBox.Show("Wprowadź ID");
+            }
+            else
+            {
+                var id = int.Parse(InputTextBox.Text);
+                klienci deleteClient = _db.klienci.FirstOrDefault(x => x.id_klienta.Equals(id));
+                _db.klienci.Remove(deleteClient);
+                _db.SaveChanges();
+                ShowClients();
+                // After Yes hide this button
+                InputBox.Visibility = System.Windows.Visibility.Collapsed;
+                // Clear InputBox
+                InputTextBox.Text = String.Empty;
+            }
         }
-
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            // NoButton Clicked
+            InputBox.Visibility = System.Windows.Visibility.Collapsed;
+            // Clear InputBox
+            InputTextBox.Text = String.Empty;
         }
         private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
-
+            TextBox tb = sender as TextBox;
+            if (tb != null && ID.Text.Length != 0)
+            {
+                var id = int.Parse(ID.Text);
+                var editQuery = from item in _db.klienci
+                                where item.id_klienta.Equals(id)
+                                select new
+                                {
+                                    id = item.id_klienta,
+                                    im = item.imie,
+                                    n = item.nazwisko,
+                                    m = item.miasto,
+                                    u= item.ulica,
+                                    k = item.kod,
+                                    p = item.pesel
+                                };
+                foreach (var item in editQuery)
+                {
+                    Imie.Text = item.im;
+                    Nazwisko.Text = item.n;
+                    Miasto.Text = item.m;
+                    Ulica.Text = item.u;
+                    Kod.Text = item.k;
+                    Pesel.Text = item.p;
+                }
+            }
         }
 
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
