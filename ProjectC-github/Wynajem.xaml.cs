@@ -84,18 +84,25 @@ namespace ProjectC_github
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-            var addCar = new wynajem()
+           if(Pracownicy.SelectedItem == null || Klienci.SelectedItem == null || Nr_rej.SelectedItem == null || DataOd.SelectedDate == null || DataDo.SelectedDate == null)
             {
-                data_od = Convert.ToDateTime(DataOd.Text),
-                data_do = Convert.ToDateTime(DataDo.Text),
-                nr_rejestracyjny = Nr_rej.SelectedItem.ToString(),
-                id_pracownika = Convert.ToInt32(Pracownicy.SelectedItem),
-                id_klienta = Convert.ToInt32(Klienci.SelectedItem)
-            };
-            _db.wynajem.Add(addCar);
-            _db.SaveChanges();
-            this.Hide();
+                MessageBox.Show("Wprowadź dane");
+            }
+            else
+            {
+                var addCar = new wynajem()
+                {
+                    data_od = Convert.ToDateTime(DataOd.Text),
+                    data_do = Convert.ToDateTime(DataDo.Text),
+                    nr_rejestracyjny = Nr_rej.SelectedItem.ToString(),
+                    id_pracownika = Convert.ToInt32(Pracownicy.SelectedItem),
+                    id_klienta = Convert.ToInt32(Klienci.SelectedItem)
+                };
+                _db.wynajem.Add(addCar);
+                _db.SaveChanges();
+                this.Hide();
+            }
+           
         }
         private void UsunWynajecie_Click(object sender, RoutedEventArgs e)
         {

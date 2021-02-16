@@ -21,10 +21,38 @@
         <Image Source="Images/baner.png" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.RowSpan="1"/>
 
         <DockPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-           <Button Margin="30" Width="70" Height="40" Content="Samochody" Click="Samochody_Click"></Button>
-            <Button Margin="30" Width="70" Height="40" Content="Wynajem" Click="Wynajem_Click"></Button>
-            <Button Margin="30" Width="70" Height="40" Content="Pracownicy" Click="Pracownicy_Click"></Button>
-            <Button Margin="30" Width="70" Height="40" Content="Klienci" Click="Klienci_Click"></Button>
+           <Button Margin="30" FontSize="17" Width="100" Height="40" Content="Samochody" Click="Samochody_Click">
+                <Button.Background>
+                    <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#04c582" Offset="1"/>
+                        <GradientStop Color="#2e3137" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Margin="30" FontSize="17" Width="100" Height="40" Content="Wynajem" Click="Wynajem_Click">
+                <Button.Background>
+                    <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#04c582" Offset="1"/>
+                        <GradientStop Color="#2e3137" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Margin="30" FontSize="17" Width="100" Height="40" Content="Pracownicy" Click="Pracownicy_Click">
+                <Button.Background>
+                    <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#04c582" Offset="1"/>
+                        <GradientStop Color="#2e3137" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Margin="30" FontSize="17" Width="100"  Height="40" Content="Klienci" Click="Klienci_Click">
+                <Button.Background>
+                    <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#04c582" Offset="1"/>
+                        <GradientStop Color="#2e3137" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </DockPanel>
 
     </Grid>

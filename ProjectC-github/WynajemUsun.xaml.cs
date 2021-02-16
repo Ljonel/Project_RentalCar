@@ -40,28 +40,81 @@ namespace ProjectC_github
                               Marka = ep.marka,
                               Data_od = e.data_od,
                               Data_do = e.data_do,
-                              Id_prac = e.id_pracownika,
-                              Id_kli = e.id_klienta
                           }).OrderBy(x => x.Id_wynaj);
             tab_wynajem.ItemsSource = rental.ToList();
         }
 
-        private void DeleteRental()
+        private void Usun_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(InputTextBox.Text))
+            if (String.IsNullOrEmpty(ID.Text))
             {
                 MessageBox.Show("Wprowadź ID");
             }
             else
             {
-                var id = int.Parse(InputTextBox.Text);
-                pracownicy deleteEmployee = _db.pracownicy.FirstOrDefault(x => x.id_pracownika.Equals(id));
-                _db.pracownicy.Remove(deleteEmployee);
-                _db.SaveChanges();
-                ShowRentalcar();
-                InputTextBox.Text = String.Empty;
+                try
+                {
+                    var id = int.Parse(ID.Text);
+                    wynajem deleteRental = _db.wynajem.FirstOrDefault(x => x.id_wynajmu.Equals(id));
+                    _db.wynajem.Remove(deleteRental);
+                    _db.SaveChanges();
+                    MessageBox.Show("Usunięto pomyślnie");
+                    ID.Text = String.Empty;
+                    ShowRentalcar();
+                }
+                catch
+                {
+                    MessageBox.Show("Nie można wykonać operacji");
+                }
+            }
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (DataOd.SelectedDate == null || DataDo.SelectedDate == null || ID.Text == null)
+                    MessageBox.Show("Wprowadź datę");
+                else
+                {
+                    var id = int.Parse(ID.Text);
+                    var applyEdit = (from item in _db.wynajem where item.id_wynajmu.Equals(id) select item).First();
+                    applyEdit.data_od = DataOd.SelectedDate;
+                    applyEdit.data_do = DataDo.SelectedDate;
+                    _db.SaveChanges();
+                    MessageBox.Show("Operacja wykonna pomyślnie");
+                    ShowRentalcar();
+                    DataOd.Text = null;
+                    DataDo.SelectedDate = null;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nie można wykonać operacji");
+            }
+        }
+        private void tb_GotFocus(object sender, TextChangedEventArgs args)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb != null && ID.Text.Length != 0)
+            {
+                var id = int.Parse(ID.Text);
+                var editQuery = from item in _db.wynajem
+                                where item.id_wynajmu.Equals(id)
+                                select new
+                                {
+                                    dataod = item.data_od,
+                                    datado = item.data_do
+                                };
+                foreach (var item in editQuery)
+                {
+                    DataOd.Text = item.dataod.ToString();
+                    DataDo.Text = item.datado.ToString();
+
+
+                }
             }
         }
 
+        
     }
 }

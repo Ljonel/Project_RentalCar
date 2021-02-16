@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectC_github"
         mc:Ignorable="d"
-        Title="Wynajem" Foreground="White" ResizeMode="CanResizeWithGrip" Width="500" Background="#04c582" Icon="Images/car.ico">
+        Title="Wynajem" Foreground="White" ResizeMode="CanResize" Width="500" Height="auto"  Background="#04c582" Icon="Images/car.ico">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel>
             <Grid>
@@ -16,7 +16,8 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions >
@@ -43,13 +44,25 @@
                 <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="Data do"></TextBlock>
                 <DatePicker Grid.Row="5" Grid.Column="2" x:Name="DataDo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" Content="Wynajmij" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
-                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Click="UsunWynajecie_Click" Content="Usuń wynajęcie" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150"/>
+                <Button  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click" Content="Wynajmij" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150">
+                    <Button.Background>
+                        <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#04c582" Offset="1"/>
+                            <GradientStop Color="#2e3137" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+                <Button Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Click="UsunWynajecie_Click" Content="Usuń wynajęcie" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150">
+                    <Button.Background>
+                        <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#04c582" Offset="1"/>
+                            <GradientStop Color="#2e3137" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
 
-            </Grid>
-            <Label FontSize="10" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-            <Grid>
-                <DataGrid ColumnWidth="*" FontSize="10" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
+                <Label FontSize="10" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                <DataGrid Grid.Row="7" Grid.ColumnSpan="4" ColumnWidth="*" Height="auto" FontSize="12" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id_wynajecia" Binding="{Binding Id_wynaj}"/>
                         <DataGridTextColumn Header="Nr_Rej" Binding="{Binding Nr_Rej}"/>
@@ -62,6 +75,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
+
         </StackPanel>
     </Border>
 </Window>

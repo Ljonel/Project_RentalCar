@@ -20,11 +20,17 @@ namespace ProjectC_github
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Inicjalizacja połączenia z bazą danych "RentalCar", nazwa ADO.net w projekcie to "RentalCarEntities"
+        /// </summary>
         RentalCarEntities _db = new RentalCarEntities();
         public MainWindow()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// Nawigacja w programie, każdy z przycisków otwiera odpowiednie okno
+        /// </summary>
         private void Wynajem_Click(object sender, RoutedEventArgs e)
         {
             Wynajem wyn = new Wynajem();

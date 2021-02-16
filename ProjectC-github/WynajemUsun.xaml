@@ -6,17 +6,21 @@
       xmlns:local="clr-namespace:ProjectC_github"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="WynajemUsun" Foreground="White"  Width="500" Background="#04c582">
-    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+      Title="WynajemUsun" Foreground="White" Background="#04c582">
+    <Border Background="#2e3137" Width="auto"  CornerRadius="20" Margin="20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
-            
-            <StackPanel>
-                <Label FontSize="10" Grid.Row ="0" Grid.ColumnSpan="4" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                <Label FontSize="12" Foreground="White" Content="Aktualnie wynajęte" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                 <Grid>
                     <DataGrid ColumnWidth="*"  FontSize="10" x:Name="tab_wynajem" x:FieldModifier="public" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -26,16 +30,35 @@
                             <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
                             <DataGridTextColumn Header="Data_Od" Binding="{Binding Data_od}"/>
                             <DataGridTextColumn Header="Data_Do" Binding="{Binding Data_do}"/>
-                            <DataGridTextColumn Header="Id_Pracownika" Binding="{Binding Id_prac}"/>
-                            <DataGridTextColumn Header="Id_Klienta" Binding="{Binding Id_kli}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </StackPanel>
-            <Label Foreground="Red" Grid.Row="1" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Podaj ID"/>
-            <TextBox x:Name="InputTextBox" Grid.Row="1" Margin="0 20"  BorderBrush="Green" BorderThickness="2" Width="50" Height="20"/>
-            <Button Grid.Row="2" Width="50" Height="20" Content="Usuń"/>
-        </Grid>
+            <Label Foreground="Red" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Podaj ID"/>
+            <TextBox TextChanged="tb_GotFocus" x:Name="ID" Grid.Row="2" Grid.Column="0" BorderBrush="Green" BorderThickness="2" Width="50" Height="20"/>
+            <Button Grid.Row="3" Width="70" HorizontalAlignment="Center" Height="30" Content="Usuń" Click="Usun_Click">
+                <Button.Background>
+                    <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#04c582" Offset="0"/>
+                        <GradientStop Color="#2e3137" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
 
+            <Label Content="Edytuj Data Od" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 100 0" Foreground="White"/>
+            <DatePicker Grid.Row="1" Grid.Column="1" x:Name="DataOd" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100 0 0 0" />
+
+            <Label Content="Edytuj Data Do" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 100 0" Foreground="White"/>
+            <DatePicker Grid.Row="2" Grid.Column="1" x:Name="DataDo" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100 0 0 0" />
+
+            <Button Click="Edit_Click"  Grid.Row="4" Grid.Column="1" BorderThickness="1" HorizontalAlignment="Center" Width="70" Height="30" Content="Edytuj">
+                <Button.Background>
+                    <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#04c582" Offset="1"/>
+                        <GradientStop Color="#2e3137" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Grid>
     </Border>
 </Page>
