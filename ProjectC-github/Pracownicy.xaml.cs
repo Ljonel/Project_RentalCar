@@ -33,7 +33,9 @@ namespace ProjectC_github
             Combobox_stanowisko.ItemsSource = positions;
             ShowEmployees();
         }
-
+        /// <summary>
+        /// Funkcja wyciąga dane z bazy RantalCar i wpisuje je do tablicy pracowników DataGrid w XAML'u
+        /// </summary>
         private void ShowEmployees()
         {
             var q = from item in _db.pracownicy
@@ -48,9 +50,14 @@ namespace ProjectC_github
                     };
             tab_pracownicy.ItemsSource = q.ToList();
         }
-
+        /// <summary>
+        /// Funkcja pobiera dane z formularza i dodaje je do bazy danych do tabeli pracownicy.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
+            //Warunek sprawdza czy TextBoxy na pewno są wypełnione, w przeciwnym razie program prosi uzytkownika o wpisanie danych.
             if (String.IsNullOrEmpty(Imie.Text) || String.IsNullOrEmpty(Nazwisko.Text) || String.IsNullOrEmpty(Pensja.Text) || String.IsNullOrEmpty(Combobox_dzial.Text))
             {
                 MessageBox.Show("Wprowadź dane");
@@ -71,6 +78,13 @@ namespace ProjectC_github
             }
            
         }
+        
+        /// <summary>
+         /// Funkcja automatycznie wypełnia formularz danymi.
+         /// Po wpisaniu przez użytkownika ID rekordu, pola formularza zostają wypełnione tymi danymi, które odpowiadają temu numerowi ID
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="args"></param>
         private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
             TextBox tb = sender as TextBox;
@@ -98,10 +112,14 @@ namespace ProjectC_github
                     }
             }
         }
+        /// <summary>
+        /// Funkcja pobiera dane z formularza i edytuje w bazie ten rekord którego ID podał uzytkownik
+        /// Po wpisaniu przez użytkownika ID, formularz automatycznie pola danymi które odpowiadają ID tego rekordu w bazie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditEmployee_Click(object sender, RoutedEventArgs e)
         {
-            // ID_textblock.Visibility = System.Windows.Visibility.Visible;
-            // ID.Visibility = System.Windows.Visibility.Visible;
             try
             {
                 if(String.IsNullOrEmpty(Imie.Text) || String.IsNullOrEmpty(Nazwisko.Text) || String.IsNullOrEmpty(Pensja.Text) || String.IsNullOrEmpty(Combobox_stanowisko.Text) || String.IsNullOrEmpty(Combobox_dzial.Text))
@@ -117,6 +135,8 @@ namespace ProjectC_github
                     applyEdit.pensja = Convert.ToDecimal(Pensja.Text);
                     _db.SaveChanges();
                     MessageBox.Show("Operacja wykonna pomyślnie");
+
+                    //Po udanej operacji formularz zostaje wyczyszczony
                     Imie.Text = "";
                     Nazwisko.Text = "";
                     Combobox_dzial.SelectedItem = null;
@@ -130,11 +150,20 @@ namespace ProjectC_github
                 MessageBox.Show("Nie można wykonać operacji");
             }
         }
-
+        /// <summary>
+        /// Po kliknięciu w przycisk "Usuń" wyświetla się InputBox dodatkowo potwierdzający usunięcie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
         {
             InputBox.Visibility = System.Windows.Visibility.Visible;
         }
+        /// <summary>
+        /// Potwierdzenie przyciskiem "Usuń" usuwa dany rekord z bazy danych
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(InputTextBox.Text))
@@ -148,22 +177,20 @@ namespace ProjectC_github
                 _db.pracownicy.Remove(deleteEmployee);
                 _db.SaveChanges();
                 ShowEmployees();
-                // After Yes hide this button
+                // Po kliknięciu "Usuń" InputBox zostaje ukryty
                 InputBox.Visibility = System.Windows.Visibility.Collapsed;
-                // Clear InputBox
+                // Czyszczenie InputBoxa
                 InputTextBox.Text = String.Empty;
             }
         }
-
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
-            // NoButton Clicked
+            //Po kliknięciu "Anuluj" InputBox zostaje ukryty
             InputBox.Visibility = System.Windows.Visibility.Collapsed;
-            // Clear InputBox
+            // Czyszczenie InputBoxa
             InputTextBox.Text = String.Empty;
         }
-
-
+        
         /// <summary>
         /// Walidacja formularza, funkcja sprawdza czy w elemencie w XAML zawierającym PrevierTextInput="Walidacja_numer" wprowadzane są tylko wartości liczbowe.
         /// </summary>

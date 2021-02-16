@@ -19,10 +19,17 @@ namespace ProjectC_github
     /// </summary>
     public partial class Samochody : Window
     {
+        /// <summary>
+        ///Inicjalizacja połączenia z bazą danych "RentalCar", nazwa ADO.net w projekcie to "RentalCarEntities"
+        /// </summary>
         RentalCarEntities _db = new RentalCarEntities();
+        /// Listy z których wybierane są odpowiednie dane dla narzuconych z góry kategorii samochodów i paliwa
         IList<string> categories = new List<string> { "Samochody luksusowe", "Samochody rodzinne", "Samochody miejskie", "Samochody dostawcze" };
         IList<string> fuel = new List<string> { "benzyna", "diesel", "gas"};
-
+        /// <summary>
+        /// Po załadowaniu okna do ComboBoxów wpisywane są dane z list
+        /// Oraz wyświetlene zostają samochody dostępne w bazie danych
+        /// </summary>
         public Samochody()
         {
             InitializeComponent();
@@ -30,6 +37,9 @@ namespace ProjectC_github
             Paliwo.ItemsSource = fuel;
             ShowCars();
         }
+        /// <summary>
+        /// Funkcja wyciąga dane z bazy RantalCar i wpisuje je do tablicy samochodów DataGrid w XAML'u
+        /// </summary>
         private void ShowCars()
         {
             var query = from item in _db.samochody
@@ -48,11 +58,13 @@ namespace ProjectC_github
                         };
             tab_samochody.ItemsSource = query.ToList();
         }
-
+        /// <summary>
+        /// Funkcja pobiera dane z formularza i dodaje je do bazy danych
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddCar_Click(object sender, RoutedEventArgs e)
         {
-            
-            
             if (String.IsNullOrEmpty(Nr_rej.Text) || String.IsNullOrEmpty(Marka.Text) || String.IsNullOrEmpty(Model.Text) || String.IsNullOrEmpty(Wersja.Text) || String.IsNullOrEmpty(Rocznik.Text) || String.IsNullOrEmpty(Poj_silnika.Text) || String.IsNullOrEmpty(Paliwo.Text) || String.IsNullOrEmpty(Przebieg.Text))
             {
                 MessageBox.Show("Wprowadź dane");
@@ -62,14 +74,12 @@ namespace ProjectC_github
                 try
                 {
                     //Tutaj przez to jak skonstruowałem sobie baze mialem wielki problem zeby to wymyslic, na szczęscie wpadłem w koncu na to jak poprawnie dodawac id cennika za pomocą kategorii z formularza
-                    /*   Something like this in sql
+                    /* W SQL
                        INSERT INTO samochody (nr_rejestracyjny, marka, model, wersja, rocznik, poj_silnika, rodzaj_paliwa,przebieg,id_cennik)
-                       VALUES ('WB 013','Toyota','Yaris','3','2020','2000','benzyna','2000', (SELECT id_cennik FROM cennik WHERE kategoria LIKE 'Samochody luksusowe'));
-                    */
+                       VALUES ('WB 013','Toyota','Yaris','3','2020','2000','benzyna','2000', (SELECT id_cennik FROM cennik WHERE kategoria LIKE 'Samochody luksusowe'));*/
                     var k = Kategoria.SelectedItem.ToString();
                     var result = _db.cennik.Where(x => x.kategoria.Contains(k)).First();
                     //MessageBox.Show(result.id_cennik.ToString());
-
                     var addCar = new samochody()
                     {
                         nr_rejestracyjny = Nr_rej.Text,
@@ -93,6 +103,12 @@ namespace ProjectC_github
                 }
             }
         }
+        /// <summary>
+        /// Funkcja pobiera dane z formularza i edytuje w bazie ten rekord którego ID podał uzytkownik
+        /// Po wpisaniu przez użytkownika ID, formularz automatycznie pola danymi które odpowiadają ID tego rekordu w bazie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditCar_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -104,7 +120,6 @@ namespace ProjectC_github
                     var id = int.Parse(ID.Text);
                     var k = Kategoria.SelectedItem.ToString();
                     var result = _db.cennik.Where(x => x.kategoria.Contains(k)).First();
-
                     var applyEdit = (from item in _db.samochody where item.id_samochodu.Equals(id) select item).First();
                     applyEdit.nr_rejestracyjny = Nr_rej.Text;
                     applyEdit.marka = Marka.Text;
@@ -117,6 +132,8 @@ namespace ProjectC_github
                     applyEdit.id_cennik = result.id_cennik;
                     _db.SaveChanges();
                     MessageBox.Show("Operacja wykonna pomyślnie");
+                    
+                    //Po udanej operacji formularz zostaje wyczyszczony
                     Nr_rej.Text = "";
                     Marka.Text = "";
                     Model.Text = "";
@@ -134,21 +151,53 @@ namespace ProjectC_github
                 MessageBox.Show("Nie można wykonać operacji");
             }
         }
+        /// <summary>
+        /// Po kliknięciu w przycisk "Usuń" wyświetla się InputBox dodatkowo potwierdzający usunięcie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteCar_Click(object sender, RoutedEventArgs e)
         {
             InputBox.Visibility = System.Windows.Visibility.Visible;
         }
+        /// <summary>
+        /// Potwierdzenie przyciskiem "Usuń" usuwa dany rekord z bazy danych
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            if (String.IsNullOrEmpty(InputTextBox.Text))
+            {
+                MessageBox.Show("Wprowadź ID");
+            }
+            else
+            {
+                var id = int.Parse(InputTextBox.Text);
+                samochody deleteCar = _db.samochody.FirstOrDefault(x => x.id_samochodu.Equals(id));
+                _db.samochody.Remove(deleteCar);
+                _db.SaveChanges();
+                ShowCars();
+                // Po kliknięciu "Usuń" InputBox zostaje ukryty
+                InputBox.Visibility = System.Windows.Visibility.Collapsed;
+                // Czyszczenie InputBoxa
+                InputTextBox.Text = String.Empty;
+            }
         }
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
-            // NoButton Clicked
+            // Po kliknięciu "Anuluj" przycisk zostaje ukryty
             InputBox.Visibility = System.Windows.Visibility.Collapsed;
-            // Clear InputBox
+            // Czyszczenie InputBoxa
             InputTextBox.Text = String.Empty;
         }
+
+        /// <summary>
+        /// Funkcja automatycznie wypełnia formularz danymi.
+        /// Po wpisaniu przez użytkownika ID rekordu, pola formularza zostają wypełnione tymi danymi, które odpowiadają temu numerowi ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
             TextBox tb = sender as TextBox;
@@ -172,7 +221,10 @@ namespace ProjectC_github
                                 };
                 foreach (var item in editQuery)
                 {
+                    //Wyświetlanie kategorii wyszło nieco bardziej skomplikowane przez konstrukcje bazy danych
+                    //Po wpisaniu id, do zmiennej category przypisywana jest nazwa kategorii z tabeli cennik, która równa się id z tabeli samochody
                     var category = _db.cennik.Where(x => x.id_cennik.Equals(item.id_c)).First();
+                    //
                     Nr_rej.Text = item.nr;
                     Marka.Text = item.marka;
                     Model.Text = item.model;
@@ -185,6 +237,11 @@ namespace ProjectC_github
                 }
             }
         }
+        /// <summary>
+        /// Funckcja pozwala na wpisanie do TextBoxa tylko cyfry, co zapobiega wprowadzaniu błędnych danych.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
