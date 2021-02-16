@@ -19,13 +19,16 @@ namespace ProjectC_github
     /// </summary>
     public partial class Klienci : Window
     {
+        /// <summary>
+        ///Inicjalizacja połączenia z bazą danych "RentalCar", nazwa ADO.net w projekcie to "RentalCarEntities"
+        /// </summary>
         RentalCarEntities _db = new RentalCarEntities();
         public Klienci()
         {
             InitializeComponent();
             ShowClients();
         }
-
+        // Funkcja wyciąga z bazy dane klientów
         private void ShowClients()
         {
             var q = from item in _db.klienci
@@ -42,8 +45,14 @@ namespace ProjectC_github
             tab_klienci.ItemsSource = q.ToList();
         }
 
+        /// <summary>
+        /// Po kliknięciu w przycisk program pobiera dane z formularza i dodaje je do bazy danych do tabeli klientów.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddClient_Click(object sender, RoutedEventArgs e)
         {
+            //Warunek sprawdza czy TextBoxy na pewno są wypełnione, w przeciwnym razie program prosi uzytkownika o wpisanie danych.
             if (String.IsNullOrEmpty(Imie.Text) || String.IsNullOrEmpty(Nazwisko.Text) || String.IsNullOrEmpty(Miasto.Text) || String.IsNullOrEmpty(Ulica.Text) || String.IsNullOrEmpty(Kod.Text) || String.IsNullOrEmpty(Pesel.Text))
             {
                 MessageBox.Show("Wprowadź dane");
@@ -73,10 +82,17 @@ namespace ProjectC_github
 
             }
         }
+        /// <summary>
+        /// Funkcja pobiera dane z formularza i edytuje w bazie ten rekord którego ID podał uzytkownik
+        /// Po wpisaniu przez użytkownika ID, formularz automatycznie wypełnia pola danymi które odpowiadają ID tego rekordu w bazie.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditClient_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //Sprawdzenie czy pola nie są puste
                 if (String.IsNullOrEmpty(Imie.Text) || String.IsNullOrEmpty(Nazwisko.Text) || String.IsNullOrEmpty(Miasto.Text) || String.IsNullOrEmpty(Ulica.Text) || String.IsNullOrEmpty(Kod.Text) || String.IsNullOrEmpty(Pesel.Text))
                     MessageBox.Show("Nie można wykonać operacji");
                 else
@@ -91,12 +107,14 @@ namespace ProjectC_github
                     applyEdit.pesel = Pesel.Text;
                     _db.SaveChanges();
                     MessageBox.Show("Operacja wykonna pomyślnie");
+                    //Po udanej operacji formularz zostaje wyczyszczony
                     Imie.Text = "";
                     Nazwisko.Text = "";
                     Miasto.Text = null;
                     Ulica.Text = null;
                     Kod.Text = "";
                     Pesel.Text = "";
+                    //Wyświetlenie zaktualizowanych danych
                     ShowClients();
                 }
             }
@@ -105,10 +123,20 @@ namespace ProjectC_github
                 MessageBox.Show("Nie można wykonać operacji");
             }
         }
+        /// <summary>
+        /// Po kliknięciu w przycisk "Usuń" wyświetla się InputBox dodatkowo potwierdzający usunięcie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteClient_Click(object sender, RoutedEventArgs e)
         {
             InputBox.Visibility = System.Windows.Visibility.Visible;
         }
+        /// <summary>
+        /// Potwierdzenie przyciskiem "Usuń" usuwa dany rekord z bazy danych
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(InputTextBox.Text))
@@ -122,19 +150,27 @@ namespace ProjectC_github
                 _db.klienci.Remove(deleteClient);
                 _db.SaveChanges();
                 ShowClients();
-                // After Yes hide this button
+                // Po kliknięciu "Usuń" InputBox zostaje ukryty
                 InputBox.Visibility = System.Windows.Visibility.Collapsed;
-                // Clear InputBox
+                // Wyczyszczenie InputBoxa
                 InputTextBox.Text = String.Empty;
             }
         }
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
-            // NoButton Clicked
+            // Po kliknięciu "Anuluj" InputBox zostaje ukryty
             InputBox.Visibility = System.Windows.Visibility.Collapsed;
-            // Clear InputBox
+            // Wyczyszczenie InputBox
             InputTextBox.Text = String.Empty;
         }
+
+
+        /// <summary>
+        /// Funkcja automatycznie wypełnia formularz danymi.
+        /// Po wpisaniu przez użytkownika ID rekordu, pola formularza zostają wypełnione tymi danymi, które odpowiadają temu numerowi ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
             TextBox tb = sender as TextBox;
@@ -164,11 +200,14 @@ namespace ProjectC_github
                 }
             }
         }
-
+        /// <summary>
+        /// Walidacja formularza, funkcja sprawdza czy w elemencie w XAML zawierającym PrevierTextInput="Walidacja_numer" wprowadzane są tylko wartości liczbowe.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
-
         }
         private static bool IsTextNumeric(string str)
         {

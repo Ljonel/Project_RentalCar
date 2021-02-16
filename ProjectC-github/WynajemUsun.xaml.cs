@@ -20,12 +20,18 @@ namespace ProjectC_github
     /// </summary>
     public partial class WynajemUsun : Page
     {
+        /// <summary>
+        ///Inicjalizacja połączenia z bazą danych "RentalCar", nazwa ADO.net w projekcie to "RentalCarEntities"
+        /// </summary>
         RentalCarEntities _db = new RentalCarEntities();
         public WynajemUsun()
         {
             InitializeComponent();
             ShowRentalcar();
         }
+        /// <summary>
+        /// Funkcja wyciąga z bazy dane samochodów które są aktualnie wypożyczone i wpisuje je do DataGrid
+        /// </summary>
         private void ShowRentalcar()
         {
             var rental = (from ep in _db.samochody
@@ -44,8 +50,14 @@ namespace ProjectC_github
             tab_wynajem.ItemsSource = rental.ToList();
         }
 
+        /// <summary>
+        /// Po kliknięciu w przycisk "Usuń" rekord o ID podanym przez użytkownika zostaje usunięty
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Usun_Click(object sender, RoutedEventArgs e)
         {
+            //Sprawdzenie czy na pewno jest wpisana wartość
             if (String.IsNullOrEmpty(ID.Text))
             {
                 MessageBox.Show("Wprowadź ID");
@@ -68,6 +80,11 @@ namespace ProjectC_github
                 }
             }
         }
+        /// <summary>
+        /// Nadanie możliwości edycji daty wypożyczenia (np. w razie pomyłki, lub złego wpisania daty w oknie dodawania do bazy)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -92,6 +109,12 @@ namespace ProjectC_github
                 MessageBox.Show("Nie można wykonać operacji");
             }
         }
+        /// <summary>
+        /// Funkcja automatycznie wypełnia formularz danymi.
+        /// Po wpisaniu przez użytkownika ID rekordu, pola formularza zostają wypełnione tymi danymi, które odpowiadają temu numerowi ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void tb_GotFocus(object sender, TextChangedEventArgs args)
         {
             TextBox tb = sender as TextBox;
@@ -109,8 +132,6 @@ namespace ProjectC_github
                 {
                     DataOd.Text = item.dataod.ToString();
                     DataDo.Text = item.datado.ToString();
-
-
                 }
             }
         }

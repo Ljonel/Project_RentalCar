@@ -196,7 +196,6 @@ namespace ProjectC_github
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// 
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
