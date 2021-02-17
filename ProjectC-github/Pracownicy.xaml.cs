@@ -79,7 +79,7 @@ namespace ProjectC_github
            
         }
         
-        /// <summary>
+         /// <summary>
          /// Funkcja automatycznie wypełnia formularz danymi.
          /// Po wpisaniu przez użytkownika ID rekordu, pola formularza zostają wypełnione tymi danymi, które odpowiadają temu numerowi ID
          /// </summary>
@@ -199,7 +199,6 @@ namespace ProjectC_github
         private void Walidacja_numer(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextNumeric(e.Text);
-        
         }
         private static bool IsTextNumeric(string str)
         {
